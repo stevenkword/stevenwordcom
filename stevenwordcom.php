@@ -21,19 +21,19 @@ function s8d_filter_bloginfo_description( $bloginfo, $show ) {
 	if( isset( $bloginfo ) && $show == 'description' ) {
 		global $post;
 
-		if( ! is_front_page() && ( is_category( 'blog' ) || in_category( 'blog', $post ) ) ) {
+		if( ! is_front_page() && ( is_category( 'blog' ) || ( is_single() && in_category( 'blog', $post ) ) ) ) {
 			$bloginfo = str_replace( "creating things", "<u>all</u> the things", $bloginfo );
 		}
 
-		if( ! is_front_page() && ( is_category( 'wordpress' ) || in_category( 'wordpress', $post ) ) ) {
+		if( ! is_front_page() && ( is_category( 'wordpress' ) || ( is_single() && in_category( 'wordpress', $post ) ) ) ){
 			$bloginfo = str_replace( "creating things", "WordPress", $bloginfo );
 		}
 
-		if( ! is_front_page() && ( is_category( 'hiking' ) || in_category( 'hiking', $post ) ) ) {
+		if( ! is_front_page() && ( is_category( 'hiking' ) || ( is_single() && in_category( 'hiking', $post ) ) ) ) {
 			$bloginfo = str_replace( "creating things", "climbing things", $bloginfo );
 		}
 
-		if( ! is_front_page() && ( is_category( 'cars' ) || in_category( 'cars', $post ) ) ) {
+		if( ! is_front_page() && ( is_category( 'cars' ) || ( is_single() && in_category( 'cars', $post ) ) ) ) {
 			$bloginfo = str_replace( "creating things", "wrenching on things", $bloginfo );
 		}
 	}
