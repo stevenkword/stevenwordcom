@@ -22,7 +22,7 @@ function s8d_filter_bloginfo_description( $bloginfo, $show ) {
 		global $post;
 
 		if( ! is_front_page() && ( is_category( 'blog' ) || in_category( 'blog', $post ) ) ) {
-			$bloginfo = str_replace( "creating things", "all of the things!", $bloginfo );
+			$bloginfo = str_replace( "creating things", "all the things!", $bloginfo );
 		}
 
 		if( ! is_front_page() && ( is_category( 'wordpress' ) || in_category( 'wordpress', $post ) ) ) {
