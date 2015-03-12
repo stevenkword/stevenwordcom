@@ -50,11 +50,14 @@ function s8d_filter_wp_head_override() {
 	if( ! is_front_page() && ( is_category( 'blog' ) || ( is_single() && in_category( 'blog', $post ) ) ) ) {
 
 	} else if ( ! is_front_page() && ( is_category( 'wordpress' ) || ( is_single() && in_category( 'wordpress', $post ) ) ) ){
-
+		$lcol_color   = '#21759b';
+		$rcol_color   = '#d54e21';
+		$header_color = '#464646';
 	} elseif ( ! is_front_page() && ( is_category( 'hiking' ) || ( is_single() && in_category( 'hiking', $post ) ) ) ) {
-		$lcol_color   = '#89A894';
-		$rcol_color   = '#8A9574';
-		$header_color = '#4d4d4c';
+		// Komoot
+		$lcol_color   = '#8A9574';
+		$rcol_color   = '#BFE02B';
+		$header_color = '#383838';
 	} elseif ( ! is_front_page() && ( is_category( 'cars' ) || ( is_single() && in_category( 'cars', $post ) ) ) ) {
 
 	}
