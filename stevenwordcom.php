@@ -76,7 +76,10 @@ function s8d_filter_wp_head_override() {
 	global $post;
 
 	if( ! is_front_page() && ( is_category( 'blog' ) || ( is_single() && in_category( 'blog', $post ) ) ) ) {
-		//things
+		// Blog
+		$lcol_color   = '#60ba46';
+		$rcol_color   = '#66cccc';
+		$header_color = '#0e2f44';
 	} elseif ( s8d_is_wordpressy_view() ) {
 		$lcol_color   = '#21759b';
 		$rcol_color   = '#d54e21';
@@ -92,6 +95,7 @@ function s8d_filter_wp_head_override() {
 		$rcol_color   = '#F94A32';
 		$header_color = '#2D2F2F';
 	}
+
 	?>
 	<style type="text/css">
 	/* Dynamic CSS: For no styles in head, copy and put the css below in your child theme's style.css, disable dynamic styles */
