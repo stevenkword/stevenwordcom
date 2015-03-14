@@ -15,7 +15,7 @@ Domain Path: /languages
  * Used to determine if we are looking at WordPressy content or archive pages
  * @return [type] [description]
  */
-function s8d_is_wordpress_content_page() {
+function s8d_is_wordpressy_view() {
 	global $post;
 
 	$current_cat = get_queried_object();
@@ -56,7 +56,7 @@ function s8d_filter_bloginfo_description( $bloginfo, $show ) {
 
 		if( ! is_front_page() && ( is_category( 'blog' ) || ( is_single() && in_category( 'blog', $post ) ) ) ) {
 			$bloginfo = str_replace( "creating things", "<u>all</u> the things", $bloginfo );
-		} elseif ( s8d_is_wordpress_content_page() ) {
+		} elseif ( s8d_is_wordpressy_view() ) {
 			$bloginfo = str_replace( "creating things", "WordPress", $bloginfo );
 		} elseif ( ! is_front_page() && ( is_category( 'hiking' ) || ( is_single() && in_category( 'hiking', $post ) ) ) ) {
 			$bloginfo = str_replace( "creating things", "climbing things", $bloginfo );
@@ -87,7 +87,7 @@ function s8d_filter_wp_head_override() {
 
 	if( ! is_front_page() && ( is_category( 'blog' ) || ( is_single() && in_category( 'blog', $post ) ) ) ) {
 		//things
-	} elseif ( s8d_is_wordpress_content_page() ) {
+	} elseif ( s8d_is_wordpressy_view() ) {
 		$lcol_color   = '#21759b';
 		$rcol_color   = '#d54e21';
 		$header_color = '#464646';
