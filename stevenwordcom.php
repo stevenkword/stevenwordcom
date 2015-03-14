@@ -21,9 +21,15 @@ function s8d_filter_bloginfo_description( $bloginfo, $show ) {
 	if( isset( $bloginfo ) && $show == 'description' ) {
 		global $post;
 
+		$current_cat = get_queried_object();
+		$current_cat_id = $current_cat->term_id;
+
+		$wordpress_cat = get_category_by_slug( 'wordpress' );
+		$wordpress_cat_id = $wordpress_cat->term_id;
+
 		if( ! is_front_page() && ( is_category( 'blog' ) || ( is_single() && in_category( 'blog', $post ) ) ) ) {
 			$bloginfo = str_replace( "creating things", "<u>all</u> the things", $bloginfo );
-		} else if ( ! is_front_page() && ( is_category( 'wordpress' ) || ( is_single() && in_category( 'wordpress', $post ) ) ) ){
+		} else if ( ! is_front_page() && ( cat_is_ancestor_of( $wordpress_cat_id, $current_cat_id ) || ( is_single() && in_category( 'wordpress', $post ) ) ) ){
 			$bloginfo = str_replace( "creating things", "WordPress", $bloginfo );
 		} elseif ( ! is_front_page() && ( is_category( 'hiking' ) || ( is_single() && in_category( 'hiking', $post ) ) ) ) {
 			$bloginfo = str_replace( "creating things", "climbing things", $bloginfo );
@@ -47,9 +53,15 @@ function s8d_filter_wp_head_override() {
 
 	global $post;
 
-	if( ! is_front_page() && ( is_category( 'blog' ) || ( is_single() && in_category( 'blog', $post ) ) ) ) {
+	$current_cat = get_queried_object();
+	$current_cat_id = $current_cat->term_id;
 
-	} else if ( ! is_front_page() && ( is_category( 'wordpress' ) || ( is_single() && in_category( 'wordpress', $post ) ) ) ){
+	$wordpress_cat = get_category_by_slug( 'wordpress' );
+	$wordpress_cat_id = $wordpress_cat->term_id;
+
+	if( ! is_front_page() && ( is_category( 'blog' ) || ( is_single() && in_category( 'blog', $post ) ) ) ) {
+		//things
+	} else if ( ! is_front_page() && ( cat_is_ancestor_of( $wordpress_cat_id, $current_cat_id ) || is_category( 'wordpress' ) || ( is_single() && in_category( 'wordpress', $post ) ) ) ){
 		$lcol_color   = '#21759b';
 		$rcol_color   = '#d54e21';
 		$header_color = '#464646';
