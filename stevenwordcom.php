@@ -49,7 +49,10 @@ function s8d_filter_bloginfo_description( $bloginfo, $show ) {
 		global $post;
 
 		$current_cat = get_queried_object();
-		$current_cat_id = $current_cat->term_id;
+		if( isset ( $current_cat ) && ! empty( $current_cat ) ) {
+			$current_cat_id = $current_cat->term_id;
+		}
+
 
 		$wordpress_cat = get_category_by_slug( 'wordpress' );
 		$wordpress_cat_id = $wordpress_cat->term_id;
