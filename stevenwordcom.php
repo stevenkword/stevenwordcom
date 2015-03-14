@@ -19,7 +19,9 @@ function s8d_is_wordpressy_view() {
 	global $post;
 
 	$current_cat = get_queried_object();
-	$current_cat_id = $current_cat->term_id;
+	if( isset ( $current_cat ) && ! empty( $current_cat ) ) {
+		$current_cat_id = $current_cat->term_id;
+	}
 
 	$wordpress_cat = get_category_by_slug( 'wordpress' );
 	$wordpress_cat_id = $wordpress_cat->term_id;
@@ -48,14 +50,6 @@ function s8d_filter_bloginfo_description( $bloginfo, $show ) {
 	if( isset( $bloginfo ) && $show == 'description' ) {
 		global $post;
 
-		$current_cat = get_queried_object();
-		if( isset ( $current_cat ) && ! empty( $current_cat ) ) {
-			$current_cat_id = $current_cat->term_id;
-		}
-
-		$wordpress_cat = get_category_by_slug( 'wordpress' );
-		$wordpress_cat_id = $wordpress_cat->term_id;
-
 		if( ! is_front_page() && ( is_category( 'blog' ) || ( is_single() && in_category( 'blog', $post ) ) ) ) {
 			$bloginfo = str_replace( "creating things", "<u>all</u> the things", $bloginfo );
 		} elseif ( s8d_is_wordpressy_view() ) {
@@ -80,12 +74,6 @@ function s8d_filter_wp_head_override() {
 	$header_color = '';
 
 	global $post;
-
-	$current_cat = get_queried_object();
-	$current_cat_id = $current_cat->term_id;
-
-	$wordpress_cat = get_category_by_slug( 'wordpress' );
-	$wordpress_cat_id = $wordpress_cat->term_id;
 
 	if( ! is_front_page() && ( is_category( 'blog' ) || ( is_single() && in_category( 'blog', $post ) ) ) ) {
 		//things
