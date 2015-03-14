@@ -56,7 +56,7 @@ function s8d_filter_wp_head_override() {
 	} elseif ( ! is_front_page() && ( is_category( 'hiking' ) || ( is_single() && in_category( 'hiking', $post ) ) ) ) {
 		// Komoot
 		$lcol_color   = '#8A9574';
-		$rcol_color   = '#BFE02B';
+		$rcol_color   = '#95C24B';
 		$header_color = '#383838';
 	} elseif ( ! is_front_page() && ( is_category( 'cars' ) || ( is_single() && in_category( 'cars', $post ) ) ) ) {
 
