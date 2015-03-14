@@ -10,6 +10,33 @@ Text Domain: stevenwordcom
 Domain Path: /languages
 */
 
+
+/**
+ * Used to determine if we are looking at WordPressy content or archive pages
+ * @return [type] [description]
+ */
+function s8d_is_wordpress_content_page() {
+	global $post;
+
+	$current_cat = get_queried_object();
+	$current_cat_id = $current_cat->term_id;
+
+	$wordpress_cat = get_category_by_slug( 'wordpress' );
+	$wordpress_cat_id = $wordpress_cat->term_id;
+
+	$plugins_page = get_page_by_path( 'plugins' );
+	$plugins_page_id = $plugins_page->ID;
+
+	if ( ! is_front_page()
+		&& ( cat_is_ancestor_of( $wordpress_cat_id, $current_cat_id ) || is_category( 'wordpress' ) || ( is_single() && in_category( 'wordpress', $post ) ) )
+		|| is_page( 'plugins' )
+		|| $post->post_parent == $plugins_page_id
+	) {
+		return true;
+	}
+	return false;
+}
+
 /**
  * Change the site title depending on category
  *
@@ -29,7 +56,7 @@ function s8d_filter_bloginfo_description( $bloginfo, $show ) {
 
 		if( ! is_front_page() && ( is_category( 'blog' ) || ( is_single() && in_category( 'blog', $post ) ) ) ) {
 			$bloginfo = str_replace( "creating things", "<u>all</u> the things", $bloginfo );
-		} else if ( ! is_front_page() && ( cat_is_ancestor_of( $wordpress_cat_id, $current_cat_id ) || ( is_single() && in_category( 'wordpress', $post ) ) ) ){
+		} elseif ( s8d_is_wordpress_content_page() ) {
 			$bloginfo = str_replace( "creating things", "WordPress", $bloginfo );
 		} elseif ( ! is_front_page() && ( is_category( 'hiking' ) || ( is_single() && in_category( 'hiking', $post ) ) ) ) {
 			$bloginfo = str_replace( "creating things", "climbing things", $bloginfo );
@@ -40,7 +67,6 @@ function s8d_filter_bloginfo_description( $bloginfo, $show ) {
 	return $bloginfo;
 }
 add_filter( 'bloginfo', 's8d_filter_bloginfo_description', 10, 2 );
-
 
 /**
  * Change styles based on category
@@ -61,7 +87,7 @@ function s8d_filter_wp_head_override() {
 
 	if( ! is_front_page() && ( is_category( 'blog' ) || ( is_single() && in_category( 'blog', $post ) ) ) ) {
 		//things
-	} else if ( ! is_front_page() && ( cat_is_ancestor_of( $wordpress_cat_id, $current_cat_id ) || is_category( 'wordpress' ) || ( is_single() && in_category( 'wordpress', $post ) ) ) ){
+	} elseif ( s8d_is_wordpress_content_page() ) {
 		$lcol_color   = '#21759b';
 		$rcol_color   = '#d54e21';
 		$header_color = '#464646';
