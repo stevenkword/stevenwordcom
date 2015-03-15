@@ -58,6 +58,8 @@ function s8d_filter_bloginfo_description( $bloginfo, $show ) {
 			$bloginfo = str_replace( "creating things", "climbing things", $bloginfo );
 		} elseif ( ! is_front_page() && ( is_category( 'cars' ) || ( is_single() && in_category( 'cars', $post ) ) ) ) {
 			$bloginfo = str_replace( "creating things", "driving things", $bloginfo );
+		} elseif ( ! is_front_page() && ( is_category( 'travel' ) || ( is_single() && in_category( 'travel', $post ) ) ) ) {
+			$bloginfo = str_replace( "creating things", "visiting <u>all</u> the places", $bloginfo );
 		}
 	}
 	return $bloginfo;
@@ -94,6 +96,12 @@ function s8d_filter_wp_head_override() {
 		$lcol_color   = '#808789';
 		$rcol_color   = '#F94A32';
 		$header_color = '#2D2F2F';
+	}
+	elseif ( ! is_front_page() && ( is_category( 'travel' ) || ( is_single() && in_category( 'travel', $post ) ) ) ) {
+		// Travel
+		$lcol_color   = '#66cccc';
+		$rcol_color   = '#60ba46';
+		$header_color = '#0e2f44';
 	}
 
 	?>
